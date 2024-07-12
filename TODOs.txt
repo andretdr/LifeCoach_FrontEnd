@@ -1,0 +1,1 @@
+look into fixing CORs issue. current fix: 'no-cors'
