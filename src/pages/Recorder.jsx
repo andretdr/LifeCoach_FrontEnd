@@ -1,4 +1,5 @@
 import { useState, useRef, useContext } from 'react';
+import Store from '../context/context'
 import '../assets/css/recorder.css'
 
 // https://blog.logrocket.com/how-to-create-video-audio-recorder-react/
@@ -7,6 +8,8 @@ import '../assets/css/recorder.css'
 const mimeType = "audio/mpeg";
 
 const Recorder = (props) => {
+    const { setGlobalResponse } = useContext(Store)
+
     const [permission, setPermission] = useState(false);
     const mediaRecorder = useRef(null);
     const [recordingStatus, setRecordingStatus] = useState("inactive");
@@ -50,7 +53,8 @@ const Recorder = (props) => {
             console.log('audioBlob');
             console.log(audioBlob);
 
-            props.sendResonseAPI(audioBlob);
+            setGlobalResponse(audioBlob);
+//            props.sendResonseAPI(audioBlob);
             console.log('Got new one!');
         };
     };
