@@ -53,18 +53,17 @@ const Response = () =>{
             });
         
 
+            // FOR NONSTREAMING, UNCOMMENT ME
 
             const blob = await response.blob();
-
             // Create a temporary URL for the Blob
-            const url = window.URL.createObjectURL(blob);
             audioRef.current.src = URL.createObjectURL(blob);
 
 
 
 
 
-
+            // // FOR STREAMING, UNCOMMENT ME
 
             // const mediaSource = new MediaSource();
             // // audioRef.current is the audio DOM element, .src is the audio element's src attr
