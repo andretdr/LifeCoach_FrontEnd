@@ -3,7 +3,7 @@ import Store from '../context/context'
 
 const Response = () =>{
 
-    const {globalResponse} = useContext(Store);
+    const {history, setHistory, globalResponse} = useContext(Store);
     const audioRef = useRef(null);
     
     useEffect(()=>{
@@ -44,22 +44,43 @@ const Response = () =>{
 
             let data = new FormData()
             data.append('file', globalResponse)
-            data.set('history', JSON.stringify([{system:'asd', content:'sad'}]))
+            data.set('history', JSON.stringify(history))
             // POST to API /talk route
             const response = await fetch('http://localhost:8000/talk', {
                 mode: 'cors',
                 method: 'post',
                 body: data,
             });
-        
+            if (!response.ok) {
+                throw error('Error on OpenAi fetch');
+            }
+
+            const resChat = await response.json();
+            setHistory(resChat);
+
+            console.log(resChat);
+
+
+//            const dataObj = datas.json();
+//            console.log(resObj);
+            // console.log(resObj[1]);
+
+
+            
+//             const resData = await response;//json();
+//             const blob = resData[0];
+//             // // Create a temporary URL for the Blob
+//              console.log(blob);
+//              audioRef.current.src = blob;
+//                audioRef.current.src = URL.createObjectURL(blob);
+//             const history = resData[1];
+//             console.log(history);
+
+
 
             // FOR NONSTREAMING, UNCOMMENT ME
-
-            const blob = await response.blob();
-            // Create a temporary URL for the Blob
-            audioRef.current.src = URL.createObjectURL(blob);
-
-
+            // const blob = await response.blob();
+            // audioRef.current.src = URL.createObjectURL(blob);
 
 
 
@@ -84,7 +105,7 @@ const Response = () =>{
     }, [globalResponse]);
 
 return (
-        <audio ref={audioRef} autoPlay />
+        <audio ref={audioRef} controls autoPlay />
         )
 }
 

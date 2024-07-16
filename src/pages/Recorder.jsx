@@ -50,8 +50,8 @@ const Recorder = (props) => {
             setAudioChunks([]);
 
             // record global audio state
-            console.log('audioBlob');
-            console.log(audioBlob);
+//            console.log('audioBlob');
+//            console.log(audioBlob);
 
             setGlobalResponse(audioBlob);
 //            props.sendResonseAPI(audioBlob);
