@@ -7,42 +7,42 @@ const Response = () =>{
     const audioRef = useRef(null);
     
     useEffect(()=>{
-        const sendResonseAPI = async() => {
+        
     
-            // function to load stream
-            const sourceOpen = async () => {
-                const sourceBuffer = mediaSource.addSourceBuffer('audio/mpeg');
+            // // function to load stream
+            // const sourceOpen = async () => {
+            //     const sourceBuffer = mediaSource.addSourceBuffer('audio/mpeg');
         
-                const reader = response.body.getReader();
+            //     const reader = response.body.getReader();
         
-                const start = () => {
-                // The following function handles each data chunk
-                // push is recursive, until all is read
-                const push = () => {
-                    // "done" is a Boolean and value a "Uint8Array"
-                    reader.read().then(({ done, value }) => {
-                    // If there is no more data to read
-                    if (done) {
-                        console.log("done", done);
-                        //mediaSource.endOfStream();
-                        return;
-                    }
-                    // Get the data and send it to the browser via the controller
-                    sourceBuffer.appendBuffer(value);
-                    // Check chunks by logging to the console
-                    console.log(done, value);
-                    push();
-                    });
-                }
-                // recursive push
-                push();
-                }
-                // starts this recursive call
-                start();
-            }
+            //     const start = () => {
+            //     // The following function handles each data chunk
+            //     // push is recursive, until all is read
+            //     const push = () => {
+            //         // "done" is a Boolean and value a "Uint8Array"
+            //         reader.read().then(({ done, value }) => {
+            //         // If there is no more data to read
+            //         if (done) {
+            //             console.log("done", done);
+            //             //mediaSource.endOfStream();
+            //             return;
+            //         }
+            //         // Get the data and send it to the browser via the controller
+            //         sourceBuffer.appendBuffer(value);
+            //         // Check chunks by logging to the console
+            //         console.log(done, value);
+            //         push();
+            //         });
+            //     }
+            //     // recursive push
+            //     push();
+            //     }
+            //     // starts this recursive call
+            //     start();
+            // }
         
-
-            let data = new FormData()
+        const openAiCall = async() =>{
+            const data = new FormData()
             data.append('file', globalResponse)
             data.set('history', JSON.stringify(history))
             // POST to API /talk route
@@ -59,6 +59,28 @@ const Response = () =>{
             setHistory(resChat);
 
             console.log(resChat);
+            elevenLabCall(resChat);
+
+        }
+
+        const elevenLabCall = async(chat_history) =>{
+            const data = new FormData()
+            data.set('history', JSON.stringify(chat_history))
+            // POST to API /talk route
+            const response = await fetch('http://localhost:8000/reply', {
+                mode: 'cors',
+                method: 'post',
+                body: data,
+            });
+            if (!response.ok) {
+                throw error('Error on ElevenLab fetch');
+            }
+
+            const blob = await response.blob();
+            audioRef.current.src = URL.createObjectURL(blob);
+
+        }
+
 
 
 //            const dataObj = datas.json();
@@ -92,14 +114,9 @@ const Response = () =>{
             // audioRef.current.src = URL.createObjectURL(mediaSource);
         
             // mediaSource.addEventListener('sourceopen', sourceOpen);
-
         
-        
-
-        }
-
         globalResponse !== null
-        ? sendResonseAPI()
+        ? openAiCall()
         : null
 
     }, [globalResponse]);
