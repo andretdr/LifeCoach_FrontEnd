@@ -1,47 +1,34 @@
-import { useRef, useContext, useEffect } from 'react'
+// https://www.youtube.com/watch?v=FK0867WUbvE
+
+import { useState, useRef, useContext, useEffect } from 'react'
 import Store from '../context/context'
+
+const Thinking = (props) => {
+    return (<>
+            {props.thinking
+            ?   <p>
+                    Thinking...
+                </p>
+            : <></>
+            }
+            </>
+    )
+}
+
 
 const Response = () =>{
 
     const {history, setHistory, globalResponse} = useContext(Store);
     const audioRef = useRef(null);
+    const [thinking, setThinking] = useState(false)
+
+    const [url, setUrl] = useState('')
     
     useEffect(()=>{
-        
-    
-            // // function to load stream
-            // const sourceOpen = async () => {
-            //     const sourceBuffer = mediaSource.addSourceBuffer('audio/mpeg');
-        
-            //     const reader = response.body.getReader();
-        
-            //     const start = () => {
-            //     // The following function handles each data chunk
-            //     // push is recursive, until all is read
-            //     const push = () => {
-            //         // "done" is a Boolean and value a "Uint8Array"
-            //         reader.read().then(({ done, value }) => {
-            //         // If there is no more data to read
-            //         if (done) {
-            //             console.log("done", done);
-            //             //mediaSource.endOfStream();
-            //             return;
-            //         }
-            //         // Get the data and send it to the browser via the controller
-            //         sourceBuffer.appendBuffer(value);
-            //         // Check chunks by logging to the console
-            //         console.log(done, value);
-            //         push();
-            //         });
-            //     }
-            //     // recursive push
-            //     push();
-            //     }
-            //     // starts this recursive call
-            //     start();
-            // }
-        
         const openAiCall = async() =>{
+
+            setThinking(true);
+
             const data = new FormData()
             data.append('file', globalResponse)
             data.set('history', JSON.stringify(history))
@@ -77,52 +64,25 @@ const Response = () =>{
             }
 
             const blob = await response.blob();
-            audioRef.current.src = URL.createObjectURL(blob);
+            const localurl = URL.createObjectURL(blob);
+            setUrl(localurl);
+            audioRef.current.src = localurl;
+
+            setThinking(false);
 
         }
-
-
-
-//            const dataObj = datas.json();
-//            console.log(resObj);
-            // console.log(resObj[1]);
-
-
-            
-//             const resData = await response;//json();
-//             const blob = resData[0];
-//             // // Create a temporary URL for the Blob
-//              console.log(blob);
-//              audioRef.current.src = blob;
-//                audioRef.current.src = URL.createObjectURL(blob);
-//             const history = resData[1];
-//             console.log(history);
-
-
-
-            // FOR NONSTREAMING, UNCOMMENT ME
-            // const blob = await response.blob();
-            // audioRef.current.src = URL.createObjectURL(blob);
-
-
-
-            // // FOR STREAMING, UNCOMMENT ME
-
-            // const mediaSource = new MediaSource();
-            // // audioRef.current is the audio DOM element, .src is the audio element's src attr
-            // // this is the way to do something like document.querySelector('audio')
-            // audioRef.current.src = URL.createObjectURL(mediaSource);
-        
-            // mediaSource.addEventListener('sourceopen', sourceOpen);
-        
+       
         globalResponse !== null
         ? openAiCall()
         : null
 
     }, [globalResponse]);
 
-return (
-        <audio ref={audioRef} controls autoPlay />
+return (<>
+        <audio ref={audioRef} autoPlay />
+        {/* <a download href={url}>download</a> */}
+        <Thinking thinking={thinking}/>
+        </>
         )
 }
 

@@ -1,12 +1,14 @@
-import { useEffect, useState, useRef, Suspense } from 'react'
+import { useState, } from 'react'
 import '../assets/css/App.css'
 import Recorder from './Recorder'
 import Response from './Response'
 import Store from '../context/context'
 
+
 function App() {
   const [globalResponse, setGlobalResponse] = useState(null)
   const [history, setHistory] = useState([])
+//  const [state, setState] = useState('')
 
   return (
     <Store.Provider value={{globalResponse, setGlobalResponse, history, setHistory}}>
