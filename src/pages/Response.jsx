@@ -4,14 +4,14 @@ import { useState, useRef, useContext, useEffect } from 'react'
 import Store from '../context/context'
 
 const Thinking = (props) => {
-    return (<>
+    return (<div className='thinking-container text-center text-light display-6'>
             {props.thinking
             ?   <p>
                     Thinking...
                 </p>
             : <></>
             }
-            </>
+            </div>
     )
 }
 
@@ -25,13 +25,28 @@ const Response = () =>{
     const [url, setUrl] = useState('')
     
     useEffect(()=>{
+
+        const handleDisableRecord = (blobUrl) =>{
+            const audioElement = document.getElementById('talk');
+            audioElement.addEventListener('ended', () => {
+                // disable audio button
+                document.getElementById('audioButton').disabled = false;
+                // discolor click n hold text
+                const collection = document.getElementsByClassName('click-text');
+                for (let items of collection)
+                    items.classList.remove('click-text__disabled')
+                URL.revokeObjectURL(blobUrl);
+
+            }, {once: true}); // runs once, then removes self
+        };
+
         const openAiCall = async() =>{
-
             setThinking(true);
-
+            
             const data = new FormData()
             data.append('file', globalResponse)
             data.set('history', JSON.stringify(history))
+
             // POST to API /talk route
             const response = await fetch('http://localhost:8000/talk', {
                 mode: 'cors',
@@ -68,6 +83,9 @@ const Response = () =>{
             setUrl(localurl);
             audioRef.current.src = localurl;
 
+            handleDisableRecord(localurl);
+
+
             setThinking(false);
 
         }
@@ -79,7 +97,7 @@ const Response = () =>{
     }, [globalResponse]);
 
 return (<>
-        <audio ref={audioRef} autoPlay />
+        <audio id='talk' ref={audioRef} autoPlay />
         {/* <a download href={url}>download</a> */}
         <Thinking thinking={thinking}/>
         </>

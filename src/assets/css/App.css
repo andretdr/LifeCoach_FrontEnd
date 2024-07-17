@@ -1,42 +1,74 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+#no-underline{
+  text-decoration: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/** small screens **/
+body{
+  min-height: calc(100vh - 100px);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media only screen and (min-height: 700px) {
+  /** small screens **/
+  body{
+    min-height: calc(100vh - 239px);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.padding_footer{
+  padding-bottom: 50px;
 }
 
-.card {
-  padding: 2em;
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
 }
 
-.read-the-docs {
-  color: #888;
+.startbutton-container {
+  height: 100px;
+}
+
+.svg{
+  fill: rgb(255, 255, 255);
+}
+
+.audio-button:disabled #svg{
+  fill: rgb(187, 187, 187);
+  animation: none;
+}
+
+.svg-hover:hover{
+  animation-name: svg_hover;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes svg_hover {
+  0%    {fill:rgb(255, 255, 255)}
+  50%   {fill:rgb(187, 187, 187)}
+  100%  {fill:rgb(255, 255, 255)}
+}
+
+.svg-active{
+  animation-name: svg_active;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes svg_active {
+  0%    {fill:rgb(255, 94, 94)}
+  /* 50%   {fill:rgb(221, 82, 82)} */
+  100%  {fill:rgb(255, 94, 94)}
+}
+
+.thinking-container{
+  height: 80px;
+}
+
+.click-text{
+  color: white;
+}
+
+.click-text__disabled{
+  color: rgb(168, 168, 168);
 }

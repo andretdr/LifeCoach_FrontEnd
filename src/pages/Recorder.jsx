@@ -12,8 +12,6 @@ import AudioButton from './AudioButton'
 
 const mimeType = "audio/mpeg";
 
-
-
 const Recorder = (props) => {
     const { setGlobalResponse } = useContext(Store)
 
@@ -61,12 +59,19 @@ const Recorder = (props) => {
             setAudio(audioUrl);
             setAudioChunks([]);
 
+            // disable audio button
+            document.getElementById('audioButton').disabled = true;
+            const collection = document.getElementsByClassName('click-text');
+            for (let items of collection)
+                items.classList.add('click-text__disabled')
+
             setGlobalResponse(audioBlob);
         };
     };
 
     /** getting microphone permissions */
     const getMicrophonePermission = async () => {
+        
         if ("MediaRecorder" in window) {
             try {
                 const streamData = await navigator.mediaDevices.getUserMedia({
@@ -75,6 +80,8 @@ const Recorder = (props) => {
                 });
                 setPermission(true);
                 setStream(streamData);
+
+                props.setSession(true);
             } catch (err) {
                 alert(err.message);
             }
@@ -89,11 +96,17 @@ const Recorder = (props) => {
 
         const handleKeyDown = (e) =>{
             if (!isRecording.current && e.key === ' '){
+                const buttonElement = document.getElementById('svg');
+                buttonElement.classList.remove('svg-hover')
+                buttonElement.classList.add('svg-active')
                 startRecording();
         }}
     
         const handleKeyUp = (e) =>{
             if (isRecording.current && e.key === ' '){
+                const buttonElement = document.getElementById('svg');
+                buttonElement.classList.remove('svg-active')
+                buttonElement.classList.add('svg-hover')
                 stopRecording();
         }}
 
@@ -109,25 +122,24 @@ const Recorder = (props) => {
 
     return (
         <div>
-            <h2>Audio Recorder</h2>
             <main>
-
                 <div className="audio-controls">
                     {!permission ? (
-                        <button className='btn btn-primary' onClick={getMicrophonePermission} type="button">
-                            Ready?
-                        </button>
-                    ) : <div>
+                        <div id='startbutton-container' className='startbutton-container row justify-content-center'>
+                            <div className='col-6 card bg-primary border-0 col-10 col-sm-8 col-md-6' onClick={getMicrophonePermission} type="button">
+                                <span className='fs-1 fw-light text-light text-center my-auto'>Start Session</span>
+                            </div>
+                        </div>
+                    ) : <div className='d-flex flex-column justify-content-center align-items-center'>
                         <AudioButton startRecording={startRecording} stopRecording={stopRecording}/>
-                            Hold to Speak / Hold space to speak
-                        </div>                    }
+                        <span id='click-text' className='d-block d-sm-none text-center p-4 click-text'>Tap and hold to speak</span>
+                        <span id='click-text' className='d-none d-sm-block p-4 click-text'>Click and hold / Hold space to speak</span>
+                        </div>}
                     {audio ? (
                         <div className="audio-container">
                             <audio src={audio}></audio>
                         </div>
                     ) : null}
-
-                    
                 </div>
             </main>
         </div>
