@@ -1,8 +1,8 @@
 const indexWriteUp = []
 indexWriteUp[0] = `
-    Career+`
+    LifeCoach`
 indexWriteUp[1] = `
-    A Fullstack demo developed to mimic conversations with a Career Coach. On the Backend, it   
+    A Fullstack demo developed to mimic conversations with a Life Coach. On the Backend, it   
     features a REST API, and runs on OpenAI's Chat Completions and Audio Transcriptions API. It utilises
     ElevenLabs for voicing.`
 indexWriteUp[2] = `

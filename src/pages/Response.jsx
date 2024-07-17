@@ -35,7 +35,7 @@ const Response = () =>{
                 const collection = document.getElementsByClassName('click-text');
                 for (let items of collection)
                     items.classList.remove('click-text__disabled')
-                URL.revokeObjectURL(blobUrl);
+              URL.revokeObjectURL(blobUrl);
 
             }, {once: true}); // runs once, then removes self
         };
@@ -60,7 +60,7 @@ const Response = () =>{
             const resChat = await response.json();
             setHistory(resChat);
 
-            console.log(resChat);
+            // console.log(resChat);
             elevenLabCall(resChat);
 
         }

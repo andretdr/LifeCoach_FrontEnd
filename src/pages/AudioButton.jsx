@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import '../assets/css/audioButton.css'
-import dave_career from '../assets/testAudio/dave_career.mp3'
+import dave_lifecoach from '../assets/testAudio/dave_lifecoach.mp3'
 
 
 
@@ -23,7 +23,7 @@ const AudioSVG = (props) => {
     }
     
     useEffect(()=>{
-        const introAudio = new Audio(dave_career);
+        const introAudio = new Audio(dave_lifecoach);
         // disable audio button
         document.getElementById('audioButton').disabled = true;
         const collection = document.getElementsByClassName('click-text');
