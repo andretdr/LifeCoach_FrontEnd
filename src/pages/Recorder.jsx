@@ -125,9 +125,13 @@ const Recorder = (props) => {
                 <div className="audio-controls">
                     {!permission ? (
                         <div id='startbutton-container' className='startbutton-container row justify-content-center'>
-                            <div className='col-6 card bg-primary border-0 col-10 col-sm-8 col-md-6' onClick={getMicrophonePermission} type="button">
+                            <div className='d-none d-md-flex col-6 card bg-primary border-0 col-10 col-sm-8 col-md-6' onClick={getMicrophonePermission} type="button">
                                 <span className='fs-1 fw-light text-light text-center my-auto'>Start Session</span>
                             </div>
+                            <div className='d-flex d-md-none col-6 card bg-secondary border-0 col-10 col-sm-8 col-md-6'>
+                                <span className='fs-1 fw-light text-light text-center my-auto'>Not Avaiable on Mobile</span>
+                            </div>
+
                         </div>
                     ) : <div className='d-flex flex-column justify-content-center align-items-center'>
                         <AudioButton startRecording={startRecording} stopRecording={stopRecording}/>

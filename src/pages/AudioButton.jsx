@@ -21,39 +21,35 @@ const AudioSVG = (props) => {
         props.stopRecording();
         
     }
-    
-    const [status, setStatus] = useState('PLAYING')
-    const [currTime, setTime] = useState(0)
 
     useEffect(()=>{
-        // const introAudio = new Audio(dave_lifecoach);
-        // // disable audio button
-        // document.getElementById('audioButton').disabled = true;
-        // const collection = document.getElementsByClassName('click-text');
-        // for (let items of collection)
-        //     items.classList.add('click-text__disabled')
+        const introAudio = new Audio(dave_lifecoach);
+        // disable audio button
+        document.getElementById('audioButton').disabled = true;
+        const collection = document.getElementsByClassName('click-text');
+        for (let items of collection)
+            items.classList.add('click-text__disabled')
 
-        // introAudio.play();
+        introAudio.play();
 
-        // introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
+        introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
 
-        // // add eventListener for when audio finishes
-        // introAudio.addEventListener('ended', ()=>{
+        // add eventListener for when audio finishes
+        introAudio.addEventListener('ended', ()=>{
 
-        //     setStatus('STOP');
+            setStatus('STOP');
 
-        //     document.getElementById('audioButton').disabled = false
-        //     const collection = document.getElementsByClassName('click-text');
-        //     for (let items of collection)
-        //         items.classList.remove('click-text__disabled')
-        // },{once:true})
+            document.getElementById('audioButton').disabled = false
+            const collection = document.getElementsByClassName('click-text');
+            for (let items of collection)
+                items.classList.remove('click-text__disabled')
+        },{once:true})
 
     },[])
 
     return (<div className='display-1 text-white'>
-            STATUS = {status}
-            TIME = {currTime}
-            <button id='audioButton' className='audio-button mb-5 bg-transparent border-0' onMouseDown={handleMouseDown} onTouchStart={handleMouseDown} onTouchEnd={handleMouseUp} onMouseUp={handleMouseUp} onContextMenu={(e)=> e.preventDefault()} holdToDisplay={-1}>
+
+            <button id='audioButton' className='audio-button mb-5 bg-transparent border-0' onMouseDown={handleMouseDown} onTouchStart={handleMouseDown} onTouchEnd={handleMouseUp} onMouseUp={handleMouseUp} onContextMenu={(e)=> e.preventDefault()}>
                 <svg id='svg' className='svg svg-hover' fill="white" width="256px" height="256px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="#000000" strokeWidth="0.00024000000000000003">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0" />
                     <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
