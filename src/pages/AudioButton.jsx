@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../assets/css/audioButton.css'
 import dave_lifecoach from '../assets/testAudio/dave_lifecoach_03.mp3'
 
@@ -22,6 +22,8 @@ const AudioSVG = (props) => {
         
     }
     
+    const [status, setStatus] = useState('playing')
+
     useEffect(()=>{
         const introAudio = new Audio(dave_lifecoach);
         // disable audio button
@@ -34,6 +36,9 @@ const AudioSVG = (props) => {
 
         // add eventListener for when audio finishes
         introAudio.addEventListener('ended', ()=>{
+
+            setStatus('STOP');
+
             document.getElementById('audioButton').disabled = false
             const collection = document.getElementsByClassName('click-text');
             for (let items of collection)
@@ -42,7 +47,8 @@ const AudioSVG = (props) => {
 
     },[])
 
-    return (
+    return (<div className='display-1 text-white'>
+            STATUS = {status}
             <button id='audioButton' className='audio-button mb-5 bg-transparent border-0' onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
                 <svg id='svg' className='svg svg-hover' fill="white" width="256px" height="256px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="#000000" strokeWidth="0.00024000000000000003">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0" />
@@ -52,7 +58,7 @@ const AudioSVG = (props) => {
                     </g>
                 </svg>
             </button>
-
+            </div>
 
             )
 }
