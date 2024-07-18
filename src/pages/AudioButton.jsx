@@ -26,27 +26,27 @@ const AudioSVG = (props) => {
     const [currTime, setTime] = useState(0)
 
     useEffect(()=>{
-        const introAudio = new Audio(dave_lifecoach);
-        // disable audio button
-        document.getElementById('audioButton').disabled = true;
-        const collection = document.getElementsByClassName('click-text');
-        for (let items of collection)
-            items.classList.add('click-text__disabled')
+        // const introAudio = new Audio(dave_lifecoach);
+        // // disable audio button
+        // document.getElementById('audioButton').disabled = true;
+        // const collection = document.getElementsByClassName('click-text');
+        // for (let items of collection)
+        //     items.classList.add('click-text__disabled')
 
-        introAudio.play();
+        // introAudio.play();
 
-        introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
+        // introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
 
-        // add eventListener for when audio finishes
-        introAudio.addEventListener('ended', ()=>{
+        // // add eventListener for when audio finishes
+        // introAudio.addEventListener('ended', ()=>{
 
-            setStatus('STOP');
+        //     setStatus('STOP');
 
-            document.getElementById('audioButton').disabled = false
-            const collection = document.getElementsByClassName('click-text');
-            for (let items of collection)
-                items.classList.remove('click-text__disabled')
-        },{once:true})
+        //     document.getElementById('audioButton').disabled = false
+        //     const collection = document.getElementsByClassName('click-text');
+        //     for (let items of collection)
+        //         items.classList.remove('click-text__disabled')
+        // },{once:true})
 
     },[])
 
