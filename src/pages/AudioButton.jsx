@@ -22,7 +22,8 @@ const AudioSVG = (props) => {
         
     }
     
-    const [status, setStatus] = useState('playing')
+    const [status, setStatus] = useState('PLAYING')
+    const [currTime, setTime] = useState(0)
 
     useEffect(()=>{
         const introAudio = new Audio(dave_lifecoach);
@@ -33,6 +34,8 @@ const AudioSVG = (props) => {
             items.classList.add('click-text__disabled')
 
         introAudio.play();
+
+        introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
 
         // add eventListener for when audio finishes
         introAudio.addEventListener('ended', ()=>{
@@ -49,6 +52,7 @@ const AudioSVG = (props) => {
 
     return (<div className='display-1 text-white'>
             STATUS = {status}
+            TIME = {currTime}
             <button id='audioButton' className='audio-button mb-5 bg-transparent border-0' onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
                 <svg id='svg' className='svg svg-hover' fill="white" width="256px" height="256px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="#000000" strokeWidth="0.00024000000000000003">
                     <g id="SVGRepo_bgCarrier" strokeWidth="0" />
