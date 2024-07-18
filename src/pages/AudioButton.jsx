@@ -32,12 +32,8 @@ const AudioSVG = (props) => {
 
         introAudio.play();
 
-        introAudio.ontimeupdate = ()=>{setTime(introAudio.currentTime)}
-
         // add eventListener for when audio finishes
         introAudio.addEventListener('ended', ()=>{
-
-            setStatus('STOP');
 
             document.getElementById('audioButton').disabled = false
             const collection = document.getElementsByClassName('click-text');
