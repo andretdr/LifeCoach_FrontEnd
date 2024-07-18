@@ -48,7 +48,8 @@ const Response = () =>{
             data.set('history', JSON.stringify(history))
 
             // POST to API /talk route
-            const response = await fetch('http://localhost:8000/talk', {
+            const response = await fetch('https://lifecoach-909cbc239480.herokuapp.com/talk', {
+//            const response = await fetch('http://localhost:8000/talk', {
                 mode: 'cors',
                 method: 'post',
                 body: data,
@@ -69,7 +70,8 @@ const Response = () =>{
             const data = new FormData()
             data.set('history', JSON.stringify(chat_history))
             // POST to API /talk route
-            const response = await fetch('http://localhost:8000/reply', {
+            const response = await fetch('https://lifecoach-909cbc239480.herokuapp.com/reply', {
+//            const response = await fetch('http://localhost:8000/reply', {
                 mode: 'cors',
                 method: 'post',
                 body: data,
