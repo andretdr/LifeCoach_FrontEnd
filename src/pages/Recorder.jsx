@@ -29,7 +29,6 @@ const Recorder = (props) => {
         setRecordingStatus("recording");
         isRecording.current = true;
         //create new Media recorder instance using the stream
-        console.log(stream);
         const media = new MediaRecorder(stream, { type: mimeType });
         //set the MediaRecorder instance to the mediaRecorder ref
         mediaRecorder.current = media;
