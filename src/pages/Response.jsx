@@ -1,4 +1,5 @@
 // https://www.youtube.com/watch?v=FK0867WUbvE
+// MSE https://web.dev/articles/media-mse-basics
 
 import { useState, useRef, useContext, useEffect } from 'react'
 import Store from '../context/context'
@@ -35,12 +36,14 @@ const Response = () =>{
                 const collection = document.getElementsByClassName('click-text');
                 for (let items of collection)
                     items.classList.remove('click-text__disabled')
-              URL.revokeObjectURL(blobUrl);
+                URL.revokeObjectURL(blobUrl);
 
             }, {once: true}); // runs once, then removes self
         };
 
+
         const openAiCall = async() =>{
+
             setThinking(true);
             
             const data = new FormData()
@@ -67,6 +70,7 @@ const Response = () =>{
         }
 
         const elevenLabCall = async(chat_history) =>{
+
             const data = new FormData()
             data.set('history', JSON.stringify(chat_history))
             // POST to API /talk route
@@ -84,14 +88,13 @@ const Response = () =>{
             const localurl = URL.createObjectURL(blob);
             setUrl(localurl);
             audioRef.current.src = localurl;
-
+           
             handleDisableRecord(localurl);
-
-
             setThinking(false);
-
         }
        
+
+
         globalResponse !== null
         ? openAiCall()
         : null
