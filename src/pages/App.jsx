@@ -1,3 +1,5 @@
+// detecting autoplay failure
+
 import { useState, } from 'react'
 import '../assets/css/App.css'
 import Recorder from './Recorder'
@@ -7,8 +9,6 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import indexWriteUp from '../assets/data/writeUp'
 import career from '../assets/imgs/career.jpg'
-
-
 
 
 function App() {
