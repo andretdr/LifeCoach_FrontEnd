@@ -1,7 +1,9 @@
 # Introduction
-LifeCoach is a full-stack demo project created by me, developed to mimic conversations with a Life Coach. On the Frontend, it runs on NodeJS / Vite / React. It maintains the session state used in the backend and prompts conversation with the user.
-You can find the link to the app below.
+LifeCoach is a full-stack demo project created by me, developed to mimic conversations with a Life Coach. On the Frontend, it runs on NodeJS / Vite / React. It maintains the session state used in the backend and prompts conversation with the user.   
 
+Back End implementation can be found [here](https://github.com/andretdr/LifeCoach_BackEnd)   
+
+You can find the link to the app below.
 [LifeCoach](https://lifecoach-frontend.vercel.app/)
 
 # Development
