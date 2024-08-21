@@ -3,7 +3,7 @@ LifeCoach is a full-stack demo project created by me, developed to mimic convers
 
 Back End implementation can be found [here](https://github.com/andretdr/LifeCoach_BackEnd)   
 
-You can find the link to the app below.
+You can find the link to the app below.   
 [LifeCoach](https://lifecoach-frontend.vercel.app/)
 
 # Development
